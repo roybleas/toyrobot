@@ -66,5 +66,17 @@ RSpec.describe CommandParser do
 				expect{commandParser.parse("PLACE 0,4,NORTH PLACE 1,3,EAST PLACE 2,2,SOUTH PLACE 4,1,WEST")}.to_not raise_error
 			end
 		end
+		context "default size" do
+			it "set alternative max size" do
+				expect{CommandParser.new(5,6).parse("PLACE 5,6,NORTH")}.to_not raise_error
+			end
+			it "raises an error when x is > than table size" do
+				expect{CommandParser.new(5,6).parse("PLACE 6,6,NORTH")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 6,6,NORTH/)
+			end
+			it "raises an error when y is > than table size" do
+				expect{CommandParser.new(5,6).parse("PLACE 1,7,SOUTH")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 1,7,SOUTH/)
+			end
+
+		end
 	end
 end
