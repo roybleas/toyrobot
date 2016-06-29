@@ -46,37 +46,28 @@ RSpec.describe CommandParser do
 			it "raises error when invalid spacing" do
 				expect{commandParser.parse(" LEFT  RIGHT ")}.to raise_error(CommandParserError,/Invalid instruction at 5 :  RIGHT /)
 			end 
+			it "raises an error and shows the position of the first unknown word" do
+				expect{commandParser.parse("LEFT RIGHT invalid MOVE")}.to raise_error(CommandParserError,/Invalid instruction at 11 : invalid/)
+			end
 		end
 		context "Invalid PLACE instructions" do
-			it "raises an error when facing is invalid" do
+			it "raises an error when facing is unknown" do
 				expect{commandParser.parse("PLACE 0,0,WRONG")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 0,0,WRONG/)
 			end
-			it "raises an error when x is > than table size" do
-				expect{commandParser.parse("PLACE 5,0,NORTH")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 5,0,NORTH/)
+			it "raises an error when x is not numeric" do
+				expect{commandParser.parse("PLACE x,0,NORTH")}.to raise_error(CommandParserError,/Invalid instruction at 0 : PLACE/)
 			end
-			it "raises an error when y is > than table size" do
-				expect{commandParser.parse("PLACE 1,5,SOUTH")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 1,5,SOUTH/)
+			it "raises an error when y is not numeric" do
+				expect{commandParser.parse("PLACE 1,y,SOUTH")}.to raise_error(CommandParserError,/Invalid instruction at 0 : PLACE/)
 			end
 			it "raises an error when facing is not all upper case" do
-				expect{commandParser.parse("PLACE 1,2,south")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 1,2,south/)
+				expect{commandParser.parse("PLACE 1,2,South")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 1,2,South/)
 			end
 		end
 		context "Valid PLACE instructions" do
 			it "does not raise an error when facing is NORTH, EAST, SOUTH, WEST" do
 				expect{commandParser.parse("PLACE 0,4,NORTH PLACE 1,3,EAST PLACE 2,2,SOUTH PLACE 4,1,WEST")}.to_not raise_error
 			end
-		end
-		context "default size" do
-			it "set alternative max size" do
-				expect{CommandParser.new(5,6).parse("PLACE 5,6,NORTH")}.to_not raise_error
-			end
-			it "raises an error when x is > than table size" do
-				expect{CommandParser.new(5,6).parse("PLACE 6,6,NORTH")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 6,6,NORTH/)
-			end
-			it "raises an error when y is > than table size" do
-				expect{CommandParser.new(5,6).parse("PLACE 1,7,SOUTH")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 1,7,SOUTH/)
-			end
-
 		end
 	end
 end

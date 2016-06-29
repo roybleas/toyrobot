@@ -4,11 +4,7 @@ class CommandParserError < StandardError
 end
 
 class CommandParser
-	def initialize(x = 4, y = 4)
-		@MaxPointX = x
-		@MaxPointY = y
-	end
-
+	
 	def parse(inputText)
 		text = inputText.strip
 		return [] if text.size == 0
@@ -42,7 +38,7 @@ class CommandParser
 	end 
 	
 	def commandIsInvalid?(command)
-		regexpPlace = /(?<x>[0-#{@MaxPointX}]{1}),(?<y>[0-#{@MaxPointY}]){1},(?<f>WEST|NORTH|EAST|SOUTH){1}/
+		regexpPlace = /(\d),(\d),(WEST|NORTH|EAST|SOUTH)/
 		return false if command =~ /MOVE|REPORT|LEFT|RIGHT/
 		return false if command.match(regexpPlace)
 		raise CommandParserError, "Invalid PLACE instruction : #{command}"
