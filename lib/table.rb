@@ -5,6 +5,6 @@ class Table
 	end 
 	
 	def valid_position?(point)
-		@size.within_area?(point)
+		@size.within_bounds_of?(point)
 	end
 end
