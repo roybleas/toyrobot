@@ -2,6 +2,7 @@ require 'move'
 require 'turn'
 require 'report'
 require 'place'
+require 'location'
 
 class CommandFactoryError < StandardError
 end

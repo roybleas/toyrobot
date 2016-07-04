@@ -2,6 +2,23 @@ require "./lib/location"
 
 
 RSpec.describe Point do
+	context "valid coordiates" do
+		it "accepts numeric coordinates" do
+			point = Point.new(1,2)
+			expect(point.x).to eq 1
+			expect(point.y).to eq 2
+		end
+		it "converts string parameters to integers" do
+			point = Point.new("1","2")
+			expect(point.x).to eq 1
+			expect(point.y).to eq 2
+		end		
+		it "converts float to integers" do
+			point = Point.new(1.2,3.5)
+			expect(point.x).to eq 1
+			expect(point.y).to eq 3
+		end
+	end
 	context "area test" do
 		let(:point) {Point.new(4,4)}
 		context "outside area" do
@@ -91,7 +108,7 @@ RSpec.describe Location do
 		it " sets direction" do          
 			myPoint = Point.new(1,0)
 			expect(location.setup?).to be_falsey
-			location.setup(:face, myPoint)
+			location.setup(direction: :face,position: myPoint)
 			expect(location.direction).to eq(:face)
 			expect(location.position).to eq(myPoint)
 			expect(location.setup?).to be_truthy
@@ -100,7 +117,7 @@ RSpec.describe Location do
 	context "new location" do
 		let(:myposition) {Point.new(1,2)}
 		let(:location) {loc = Location.new()
-			loc.setup(:face,myposition)
+			loc.setup(direction: :face, position: myposition)
 			loc} 
 		it "by position" do
 			myNewPosition = Point.new(3,4)     

@@ -1,8 +1,10 @@
+class PointError < StandardError;end
+
 class Point
 	attr_accessor :x, :y
 	def initialize(x,y)
-		@x = x
-		@y = y
+		@x = x.to_i
+		@y = y.to_i
 	end
 	
 	def ==(another_point)
@@ -27,7 +29,7 @@ end
 
 class Location
 	attr_accessor :direction, :position
-	def setup(direction, position)
+	def setup(direction: , position: )
 		@direction = direction
 		@position = position
 	end
