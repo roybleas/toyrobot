@@ -105,28 +105,32 @@ end
 RSpec.describe Location do
 	context "setup a location" do
 		let(:location) {Location.new()}
+		let(:myPoint)  {Point.new(1,0)}
 		it " sets direction" do          
-			myPoint = Point.new(1,0)
 			expect(location.setup?).to be_falsey
-			location.setup(direction: :face,position: myPoint)
-			expect(location.direction).to eq(:face)
+			location.setup(direction: :NORTH, position: myPoint)
+			expect(location.direction).to eq(:NORTH)
 			expect(location.position).to eq(myPoint)
 			expect(location.setup?).to be_truthy
+		end
+		it "ignores setup when invalid direction" do
+			location.setup(direction: :BAD, position: myPoint)
+			expect(location.setup?).to be_falsey
 		end
 	end
 	context "new location" do
 		let(:myposition) {Point.new(1,2)}
 		let(:location) {loc = Location.new()
-			loc.setup(direction: :face, position: myposition)
+			loc.setup(direction: :EAST, position: myposition)
 			loc} 
 		it "by position" do
 			myNewPosition = Point.new(3,4)     
 			newLocation = location.newPosition(myNewPosition)  
 			
 			expect(newLocation.position).to eq(myNewPosition)
-			expect(newLocation.direction).to eq(:face)
+			expect(newLocation.direction).to eq(:EAST)
 			expect(location.position).to eq(myposition)
-			expect(location.direction).to eq(:face)						
+			expect(location.direction).to eq(:EAST)						
 		end
 		it "ignore position when nil" do
 			nil_location = Location.new()
@@ -140,9 +144,9 @@ RSpec.describe Location do
 		end
 		
 		it "by face" do
-			location.direction = :newFace
+			location.direction = :SOUTH
 			expect(location.position).to eq(myposition)
-			expect(location.direction).to eq(:newFace)						
+			expect(location.direction).to eq(:SOUTH)						
 		end
 		it "ignore when nil" do
 			nil_location = Location.new()
