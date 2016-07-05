@@ -2,6 +2,11 @@ require "./lib/location"
 
 
 RSpec.describe Point do
+	context "create point objects" do
+		it "creates from new object"  do
+			expect(Point.new(2,3)).to be_a(Point)
+		end
+	end
 	context "valid coordiates" do
 		it "accepts numeric coordinates" do
 			point = Point.new(1,2)
@@ -108,50 +113,50 @@ RSpec.describe Location do
 		let(:myPoint)  {Point.new(1,0)}
 		it " sets direction" do          
 			expect(location.setup?).to be_falsey
-			location.setup(direction: :NORTH, position: myPoint)
+			location.setup(direction: :NORTH, point: myPoint)
 			expect(location.direction).to eq(:NORTH)
-			expect(location.position).to eq(myPoint)
+			expect(location.point).to eq(myPoint)
 			expect(location.setup?).to be_truthy
 		end
 		it "ignores setup when invalid direction" do
-			location.setup(direction: :BAD, position: myPoint)
+			location.setup(direction: :BAD, point: myPoint)
 			expect(location.setup?).to be_falsey
 		end
 	end
 	context "new location" do
-		let(:myposition) {Point.new(1,2)}
+		let(:mypoint) {Point.new(1,2)}
 		let(:location) {loc = Location.new()
-			loc.setup(direction: :EAST, position: myposition)
+			loc.setup(direction: :EAST, point: mypoint)
 			loc} 
-		it "by position" do
-			myNewPosition = Point.new(3,4)     
-			newLocation = location.newPosition(myNewPosition)  
+		it "by point" do
+			myNewpoint = Point.new(3,4)     
+			newLocation = location.new_point(myNewpoint)  
 			
-			expect(newLocation.position).to eq(myNewPosition)
+			expect(newLocation.point).to eq(myNewpoint)
 			expect(newLocation.direction).to eq(:EAST)
-			expect(location.position).to eq(myposition)
+			expect(location.point).to eq(mypoint)
 			expect(location.direction).to eq(:EAST)						
 		end
-		it "ignore position when nil" do
+		it "ignore point when nil" do
 			nil_location = Location.new()
-			myNewPosition = Point.new(3,4)     
-			newLocation = nil_location.newPosition(myNewPosition)  
+			myNewpoint = Point.new(3,4)     
+			newLocation = nil_location.new_point(myNewpoint)  
 			
-			expect(newLocation.position).to be_nil
+			expect(newLocation.point).to be_nil
 			expect(newLocation.direction).to be_nil
-			expect(nil_location.position).to be_nil
+			expect(nil_location.point).to be_nil
 			expect(nil_location.direction).to be_nil						
 		end
 		
 		it "by face" do
 			location.direction = :SOUTH
-			expect(location.position).to eq(myposition)
+			expect(location.point).to eq(mypoint)
 			expect(location.direction).to eq(:SOUTH)						
 		end
 		it "ignore when nil" do
 			nil_location = Location.new()
 			nil_location.direction = :newFace
-			expect(nil_location.position).to be_nil
+			expect(nil_location.point).to be_nil
 			expect(nil_location.direction).to be_nil						
 		end
 

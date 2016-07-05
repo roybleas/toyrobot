@@ -8,9 +8,9 @@ class CommandParser
 	def parse(inputText)
 		text = inputText.strip
 		return [] if text.size == 0
-		
 		return extractCommands(text)
 	end
+	
 	private
 	
 	def extractCommands(text)

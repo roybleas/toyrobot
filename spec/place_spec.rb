@@ -7,7 +7,7 @@ RSpec.describe Place do
 			place = Place.new(x: 1,y: 2,facing: "NORTH")
 			
 			expect(place.facing).to eq(:NORTH)
-			expect(place.position).to eq(Point.new(1,2))
+			expect(place.point).to eq(Point.new(1,2))
 		end
 		it "fails with missing keyword parameter" do
 			expect{place = Place.new(y: 2,facing: "NORTH")}.to raise_error(ArgumentError,/missing keyword/)
@@ -15,7 +15,7 @@ RSpec.describe Place do
 		it "creates with keywords" do
 			place = Place.new(facing: "SOUTH", x: 99, y: -1)
 			expect(place.facing).to eq(:SOUTH)
-			expect(place.position).to eq(Point.new(99,-1))
+			expect(place.point).to eq(Point.new(99,-1))
 		end
 	end
 	context "execute" do
@@ -24,15 +24,15 @@ RSpec.describe Place do
 			location = Location.new()
 			newLocation = place.execute(location)
 			expect(newLocation.direction).to eq(:NORTH)
-			expect(newLocation.position).to eq(Point.new(1,2))
+			expect(newLocation.point).to eq(Point.new(1,2))
 		end
 		it "ignores original location" do
 			place = Place.new(x: 1,y: 2,facing: "NORTH")
 			location = Location.new()
-			location.setup(direction: :EAST, position: Point.new(3,4))
+			location.setup(direction: :EAST, point: Point.new(3,4))
 			newLocation = place.execute(location)
 			expect(location.direction).to eq(:EAST)
-			expect(location.position).to eq(Point.new(3,4))
+			expect(location.point).to eq(Point.new(3,4))
 		end
 		
 	end

@@ -1,15 +1,15 @@
 require 'location'
 
 class Place
-	attr_reader :position, :facing
+	attr_reader :point, :facing
 	def initialize(x: , y: , facing:)
 		@facing = facing.to_sym
-		@position = Point.new(x.to_i,y.to_i)
+		@point = Point.new(x.to_i,y.to_i)
 	end
 	
 	def execute(location)
 		newLocation = Location.new()
-		newLocation.setup(direction: @facing, position: @position)
+		newLocation.setup(direction: @facing, point: @point)
 		newLocation	
 	end
 end

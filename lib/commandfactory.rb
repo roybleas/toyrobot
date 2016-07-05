@@ -31,8 +31,6 @@ class CommandFactory
 	def	self.createPlace(command)
 		regexp = /(?<x>\d),(?<y>\d),(?<f>\w+)/
 		data = command.match(regexp)
-		return Place.new(x: data[:x],y: data[:y],facing: data[:f])
-		
-		
+		return Place.new(x: data[:x],y: data[:y],facing: data[:f])		
 	end
 end

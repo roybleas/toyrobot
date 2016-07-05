@@ -4,7 +4,7 @@ class Table
 		@size = Point.new(x.to_i, y.to_i)
 	end 
 	
-	def valid_position?(point)
+	def valid_point?(point)
 		@size.within_bounds_of?(point)
 	end
 end

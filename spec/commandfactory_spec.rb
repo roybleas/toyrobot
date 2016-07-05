@@ -23,8 +23,8 @@ RSpec.describe CommandFactory do
 		it "has facing" do
 			expect(CommandFactory.create("PLACE 0,1,WEST").facing).to eq(:WEST)
 		end
-		it "has a position" do
-			expect(CommandFactory.create("PLACE 0,1,WEST").position).to be == Point.new(0,1)
+		it "has a point" do
+			expect(CommandFactory.create("PLACE 0,1,WEST").point).to be == Point.new(0,1)
 		end
 	end
 	context "unknown object type" do

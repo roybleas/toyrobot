@@ -9,22 +9,22 @@ RSpec.describe Table do
   	let(:table) {Table.new()} 
   	it "returns true if x point within table size" do
   		point = Point.new(4,0)
-  		expect(table.valid_position?(point)).to be_truthy
+  		expect(table.valid_point?(point)).to be_truthy
   	end
   	it "returns true if y point within table size" do
   		point = Point.new(0,4)
-  		expect(table.valid_position?(point)).to be_truthy
+  		expect(table.valid_point?(point)).to be_truthy
   	end
   end
   context "invalid location" do
   	let(:table) {Table.new(3,3)} 
   	it "returns true if x point within table size" do
   		point = Point.new(4,0)
-  		expect(table.valid_position?(point)).to be_falsey
+  		expect(table.valid_point?(point)).to be_falsey
   	end
   	it "returns true if y point within table size" do
   		point = Point.new(0,4)
-  		expect(table.valid_position?(point)).to be_falsey
+  		expect(table.valid_point?(point)).to be_falsey
   	end
   end
 

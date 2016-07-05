@@ -9,19 +9,19 @@ RSpec.describe Left do
 		let(:command) {Left.new()}
 		
 		it "turns west to south" do
-			location.setup(direction: :WEST, position: Point.new(2,3))
+			location.setup(direction: :WEST, point: Point.new(2,3))
 			expect(command.execute(location).direction).to eq(:SOUTH)
 		end
 		it "turns south to east" do
-			location.setup(direction: :SOUTH, position: Point.new(2,3))
+			location.setup(direction: :SOUTH, point: Point.new(2,3))
 			expect(command.execute(location).direction).to eq(:EAST)	
 		end
 		it "turns east to north" do
-			location.setup(direction: :EAST, position: Point.new(2,3))
+			location.setup(direction: :EAST, point: Point.new(2,3))
 			expect(command.execute(location).direction).to eq(:NORTH)	
 		end
 		it "turns north to west" do
-			location.setup(direction: :NORTH,position: Point.new(2,3))
+			location.setup(direction: :NORTH,point: Point.new(2,3))
 			expect(command.execute(location).direction).to eq(:WEST)	
 		end
 	end
@@ -41,19 +41,19 @@ RSpec.describe Right do
 		let(:command) {Right.new()}
 		
 		it "turns west to north" do
-			location.setup(direction: :WEST, position: Point.new(2,3))
+			location.setup(direction: :WEST, point: Point.new(2,3))
 			expect(command.execute(location).direction).to eq(:NORTH)
 		end
 		it "turns south to west" do
-			location.setup(direction: :SOUTH, position: Point.new(2,3))
+			location.setup(direction: :SOUTH, point: Point.new(2,3))
 			expect(command.execute(location).direction).to eq(:WEST)	
 		end
 		it "turns east to south" do
-			location.setup(direction: :EAST,position: Point.new(2,3))
+			location.setup(direction: :EAST,point: Point.new(2,3))
 			expect(command.execute(location).direction).to eq(:SOUTH)	
 		end
 		it "turns north to west" do
-			location.setup(direction: :NORTH, position: Point.new(2,3))
+			location.setup(direction: :NORTH, point: Point.new(2,3))
 			expect(command.execute(location).direction).to eq(:EAST)	
 		end
 	end
