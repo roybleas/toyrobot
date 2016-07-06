@@ -15,8 +15,8 @@ class CommandParser
 	
 	def extractCommands(text)
 		regexpError = /\s*\w+\b\s*/
-		regexp = /MOVE\s|REPORT\s|LEFT\s|RIGHT\s|PLACE \d,\d,\w+\b\s/
-		
+		regexp = /\s*MOVE\s+|\s*REPORT\s+|\s*LEFT\s+|\s*RIGHT\s+|\s*PLACE \d,\d,\w+\b\s+/
+		regComment = /^\s*#.*$/
 		
 		commandList = []
 		text = text + " "
@@ -24,6 +24,8 @@ class CommandParser
 		scanner = StringScanner.new(text)
 		
 		while !scanner.eos?
+			scanner.skip(regComment)
+			
 			command = scanner.scan(regexp)
 			break if command.nil?
 			commandList << command.strip unless commandIsInvalid?(command)	

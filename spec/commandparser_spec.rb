@@ -36,6 +36,12 @@ RSpec.describe CommandParser do
 			it "combined" do
 				expect(commandParser.parse("PLACE 2,4,SOUTH MOVE RIGHT LEFT REPORT")).to eq ["PLACE 2,4,SOUTH", "MOVE", "RIGHT", "LEFT", "REPORT"]
 			end
+			it "allows multiple whitespace between instructions" do
+				expect(commandParser.parse("MOVE   MOVE       MOVE MOVE")).to eq ["MOVE", "MOVE", "MOVE", "MOVE"]
+			end
+			it "allows multiple whitespace between all types of instructions" do
+				expect(commandParser.parse("MOVE   LEFT       RIGHT  REPORT  PLACE 1,2,WEST   ")).to eq ["MOVE", "LEFT", "RIGHT", "REPORT", "PLACE 1,2,WEST"]
+			end			
 		end
 		context "unknown instructions" do
 			it "raise error" do
@@ -43,9 +49,6 @@ RSpec.describe CommandParser do
 			end
 		end
 		context "Invalid instructions" do
-			it "raises error when invalid spacing" do
-				expect{commandParser.parse(" LEFT  RIGHT ")}.to raise_error(CommandParserError,/Invalid instruction at 5 :  RIGHT /)
-			end 
 			it "raises an error and shows the position of the first unknown word" do
 				expect{commandParser.parse("LEFT RIGHT invalid MOVE")}.to raise_error(CommandParserError,/Invalid instruction at 11 : invalid/)
 			end
@@ -67,6 +70,20 @@ RSpec.describe CommandParser do
 		context "Valid PLACE instructions" do
 			it "does not raise an error when facing is NORTH, EAST, SOUTH, WEST" do
 				expect{commandParser.parse("PLACE 0,4,NORTH PLACE 1,3,EAST PLACE 2,2,SOUTH PLACE 4,1,WEST")}.to_not raise_error
+			end
+		end
+		context "comment lines" do
+			it "ignores line starting with #" do
+				expect(commandParser.parse("# ")).to be_empty
+			end
+			it "returns commands after a comment line" do
+				expect(commandParser.parse(" # test line \nMOVE REPORT ")).to eq ["MOVE", "REPORT"]
+			end
+			it "ignores comment lines between instructions" do
+				expect(commandParser.parse("MOVE \n # test line \nLEFT REPORT ")).to eq ["MOVE","LEFT", "REPORT"]
+			end
+			it "ignores comments before all instructions" do
+				expect(commandParser.parse("# test line 1 \n PLACE 0,1,EAST MOVE \n # test line 2\nLEFT \n REPORT \n RIGHT \n # Last comment")).to eq ["PLACE 0,1,EAST", "MOVE","LEFT", "REPORT" , "RIGHT"]
 			end
 		end
 	end
