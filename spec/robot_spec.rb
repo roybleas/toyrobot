@@ -104,12 +104,12 @@ RSpec.describe Robot do
 				expect(robot.current_location.point).to eq(Point.new(4,4))
 			end
 			it "when attempts to move before x coordinate - area" do
-				valid_place = Place.new(x: 0,y: 4,facing: "SOUTH")
+				valid_place = Place.new(x: 0,y: 4,facing: "WEST")
 				invalid_move = Move.new
 				robot.command_list = [valid_place, invalid_move]
 				robot.run
 				expect(robot.current_location.setup?).to be_truthy
-				expect(robot.current_location.direction).to eq(:SOUTH)
+				expect(robot.current_location.direction).to eq(:WEST)
 				expect(robot.current_location.point).to eq(Point.new(0,4))
 			end
 			it "when attempts to move outside y coordinate - area" do
@@ -122,12 +122,12 @@ RSpec.describe Robot do
 				expect(robot.current_location.point).to eq(Point.new(4,4))
 			end
 			it "when attempts to move before y coordinate - area" do
-				valid_place = Place.new(x: 4,y: 0,facing: "WEST")
+				valid_place = Place.new(x: 4,y: 0,facing: "SOUTH")
 				invalid_move = Move.new
 				robot.command_list = [valid_place, invalid_move]
 				robot.run
 				expect(robot.current_location.setup?).to be_truthy
-				expect(robot.current_location.direction).to eq(:WEST)
+				expect(robot.current_location.direction).to eq(:SOUTH)
 				expect(robot.current_location.point).to eq(Point.new(4,0))
 			end
 

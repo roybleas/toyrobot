@@ -85,6 +85,10 @@ RSpec.describe CommandParser do
 			it "ignores comments before all instructions" do
 				expect(commandParser.parse("# test line 1 \n PLACE 0,1,EAST MOVE \n # test line 2\nLEFT \n REPORT \n RIGHT \n # Last comment")).to eq ["PLACE 0,1,EAST", "MOVE","LEFT", "REPORT" , "RIGHT"]
 			end
+			it "ignores multiple comment lines before instructions" do
+				expect(commandParser.parse("# test line 1 \n# test line 1 \n PLACE 0,1,EAST MOVE \n # test line 2\nLEFT \n REPORT \n RIGHT \n # Last comment")).to eq ["PLACE 0,1,EAST", "MOVE","LEFT", "REPORT" , "RIGHT"]
+			end
+			
 		end
 	end
 end

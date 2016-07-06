@@ -6,23 +6,23 @@ RSpec.describe Move do
 	context "execute" do
 		let(:command) {Move.new()}
 		let(:location) {Location.new()}
-		it "increases x coordinate by 1 when when facing north" do
-			location.setup(direction: :NORTH, point: Point.new(0,0))
+		it "increases x coordinate by 1 when when facing EAST" do
+			location.setup(direction: :EAST, point: Point.new(0,0))
 			new_location = command.execute(location)
 			expect(new_location.point).to eq(Point.new(1,0))
 		end 
-		it "increases y coordinate by 1 when when facing East" do
-			location.setup(direction: :EAST, point: Point.new(0,0))
+		it "increases y coordinate by 1 when when facing NORTH" do
+			location.setup(direction: :NORTH, point: Point.new(0,0))
 			new_location = command.execute(location)
 			expect(new_location.point).to eq(Point.new(0,1))
 		end 
-		it "decreases x coordinate by 1 when when facing south" do
-			location.setup(direction: :SOUTH, point: Point.new(4,4))
+		it "decreases x coordinate by 1 when when facing WEST" do
+			location.setup(direction: :WEST, point: Point.new(4,4))
 			new_location = command.execute(location)
 			expect(new_location.point).to eq(Point.new(3,4))
 		end 
-		it "decreases y coordinate by -1 when when facing west" do
-			location.setup(direction: :WEST, point: Point.new(4,4))
+		it "decreases y coordinate by -1 when when facing SOUTH" do
+			location.setup(direction: :SOUTH, point: Point.new(4,4))
 			new_location = command.execute(location)
 			expect(new_location.point).to eq(Point.new(4,3))
 		end 

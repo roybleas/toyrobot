@@ -1,3 +1,4 @@
+# Test run 2 reports 0,1, North
 PLACE 0,0,NORTH
 MOVE
 REPORT
