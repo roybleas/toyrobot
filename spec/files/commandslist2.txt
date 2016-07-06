@@ -1,1 +1,2 @@
 Line from example file two
+Line two from example file two

@@ -1,5 +1,7 @@
-require 'table'
-require 'location'
+require_relative 'table'
+require_relative 'location'
+require_relative 'commandparser'
+require_relative 'commandfactory'
 
 class Robot
 	attr_reader :table, :current_location
@@ -19,6 +21,7 @@ class Robot
 	
 	def run
 		@command_list.each do |command|
+			
 			new_location = command.execute(@current_location)
 			unless new_location.point.nil? 
 				@current_location = new_location if table.valid_point?(new_location.point)

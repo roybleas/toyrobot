@@ -10,10 +10,10 @@ RSpec.describe Report do
 			command = Report.new()
 			expect{command.execute(location)}.to output(/1,0,WEST/).to_stdout 
 		end
-		it "outputs no current location" do
+		it "outputs nothing when no current location" do
 			location = Location.new()
 			command = Report.new()
-			expect{command.execute(location)}.to output(/No location set yet!/).to_stdout 
+			expect{command.execute(location)}.to_not output.to_stdout
 		end
 
 	end

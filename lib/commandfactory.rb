@@ -1,8 +1,8 @@
-require 'move'
-require 'turn'
-require 'report'
-require 'place'
-require 'location'
+require_relative 'move'
+require_relative 'turn'
+require_relative 'report'
+require_relative 'place'
+
 
 class CommandFactoryError < StandardError
 end

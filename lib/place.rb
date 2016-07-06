@@ -1,4 +1,3 @@
-require 'location'
 
 class Place
 	attr_reader :point, :facing

@@ -18,14 +18,14 @@ RSpec.describe Inputfiles do
 			it "retrieves the command line text" do
 				filename = './spec/files/commandslist.txt'
 				ARGV << filename
-				expect(Inputfiles.new().read).to  include("sample text")
+				expect(Inputfiles.new.read).to  include("sample text")
 			end
 			it "retrieves from multiple files" do
 				filename = './spec/files/commandslist.txt'
 				ARGV << filename
 				filename = './spec/files/commandslist2.txt'
 				ARGV << filename
-				expect(Inputfiles.new().read).to  include("sample text")
+				expect(Inputfiles.new.read).to  include("Line two from example file two")
 			end
 		end
 	end

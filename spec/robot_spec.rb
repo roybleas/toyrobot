@@ -46,7 +46,7 @@ RSpec.describe Robot do
 				expect(robot.current_location.setup?).to be_falsey
 			end
 			it "when command list has no Place command" do
-				robot.command_list = [Move.new(), Left.new(), Right.new(), Move.new()]
+				robot.command_list = [Move.new, Left.new, Right.new, Move.new, Report.new]
 				robot.run
 				expect(robot.current_location.setup?).to be_falsey
 			end

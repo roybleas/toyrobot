@@ -1,4 +1,5 @@
-require 'location'
+require_relative "location"
+
 class Move
 	ADD_POINT = {:NORTH => Point.new(1,0), 
 		:SOUTH => Point.new(-1,0), 
