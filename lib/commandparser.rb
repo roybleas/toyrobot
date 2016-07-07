@@ -16,7 +16,6 @@ class CommandParser
   def extractCommands(text)
     regexpError = /\s*\w+\b\s*/
     regexp = /\s*MOVE\s+|\s*REPORT\s+|\s*LEFT\s+|\s*RIGHT\s+|\s*PLACE \d,\d,\w+\b\s+|^\s*#.*$/
-
     
     commandList = []
     text = text + " "
@@ -39,10 +38,11 @@ class CommandParser
   
   def commandIsInvalid?(command)
     regexpPlace = /(\d),(\d),(WEST|NORTH|EAST|SOUTH)/
-    regComment = /\s*#.*/
+		regexpCommands = /MOVE|REPORT|LEFT|RIGHT/
+    regexpComment = /\s*#.*/
 
-    return false if command.match( /MOVE|REPORT|LEFT|RIGHT/)
-    return true if command.match(regComment)
+    return false if command.match(regexpCommands )
+    return true if command.match(regexpComment)
     return false if command.match(regexpPlace)
     raise CommandParserError, "Invalid PLACE instruction : #{command}"
     return true

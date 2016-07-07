@@ -1,7 +1,7 @@
 class Table
   attr_accessor :size
   def initialize(x = 4,y = 4)
-    @size = Point.new(x.to_i, y.to_i)
+    @size = Point.new(x, y)
   end 
   
   def valid_point?(point)

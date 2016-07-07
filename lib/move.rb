@@ -14,7 +14,6 @@ class Move
     newLocation = new_location(location,new_point)
     
     return newLocation  
-    
   end
   
   def new_location(location,point)

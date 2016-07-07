@@ -20,8 +20,7 @@ class Robot
   end
   
   def run
-    @command_list.each do |command|
-      
+    @command_list.each do |command|    
       new_location = command.execute(@current_location)
       if new_location.setup?
         @current_location = new_location if table.valid_point?(new_location.point)
