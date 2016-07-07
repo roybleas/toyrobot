@@ -23,7 +23,7 @@ class Robot
     @command_list.each do |command|
       
       new_location = command.execute(@current_location)
-      unless new_location.point.nil? 
+      if new_location.setup?
         @current_location = new_location if table.valid_point?(new_location.point)
       end
     end
