@@ -14,6 +14,5 @@ RSpec.describe Report do
 			command = Report.new
 			expect{command.execute(location)}.to_not output.to_stdout
 		end
-
 	end
 end

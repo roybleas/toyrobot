@@ -31,6 +31,7 @@ RSpec.describe Robot do
 				expect(robot.command_list[3]). to be_a(Move)
 			end
 		end
+		
 		context "rejects invalid instructions text" do
 			it "rejects lowercase instructions" do
 				expect{robot.feed_instructions("MOVE place 0,0,North")}.to raise_error(CommandParserError, /Invalid instruction at 5 : place/ )
@@ -130,7 +131,6 @@ RSpec.describe Robot do
 				expect(robot.current_location.direction).to eq(:SOUTH)
 				expect(robot.current_location.point).to eq(Point.new(4,0))
 			end
-
 		end
 	end
 end
