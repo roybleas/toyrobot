@@ -28,36 +28,31 @@ class Point
 end
 
 class Location
-	VALID_DIRECTIONS = [:NORTH, :SOUTH, :EAST, :WEST]
-	
 	attr_accessor :direction, :point
+	
+	VALID_DIRECTIONS = [:NORTH, :SOUTH, :EAST, :WEST].freeze
+	
 	def setup(direction: , point: )
 		if VALID_DIRECTIONS.include?(direction)
 			@direction = direction
 			@point = point
+			return self
 		end
 	end
-	def new_point(point)
-		if setup?
-			newLocation = self.duplicate
-			newLocation.point = point
-		else
-			newLocation = self.clone()
-		end
-		return newLocation
-	end
-	
+			
 	def direction=(direction)
 		if setup?
 			@direction = direction if VALID_DIRECTIONS.include?(direction)
 		end
 	end
+	
 	def duplicate
 		location = Location.new()
 		location.point = @point
 		location.direction = @direction
 		return location
 	end
+	
 	def setup?
 		return true unless @direction.nil? && @point.nil?
 		false

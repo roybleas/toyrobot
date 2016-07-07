@@ -10,9 +10,20 @@ class Move
 		return location unless location.setup?
 	
 		new_point = location.point.add(ADD_POINT[location.direction])
-		new_location = location.new_point(new_point)
-		return new_location	
+		newLocation = new_location(location,new_point)
 		
+		return newLocation	
+		
+	end
+	
+	def new_location(location,point)
+		if location.setup?
+			newLocation = location.duplicate
+			newLocation.point = point
+		else
+			newLocation = location.clone
+		end
+		return newLocation
 	end
 	
 end

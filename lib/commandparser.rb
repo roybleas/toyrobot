@@ -40,6 +40,7 @@ class CommandParser
 	def commandIsInvalid?(command)
 		regexpPlace = /(\d),(\d),(WEST|NORTH|EAST|SOUTH)/
 		regComment = /\s*#.*/
+
 		return false if command.match( /MOVE|REPORT|LEFT|RIGHT/)
 		return true if command.match(regComment)
 		return false if command.match(regexpPlace)

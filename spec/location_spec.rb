@@ -2,7 +2,7 @@ require "./lib/location"
 
 
 RSpec.describe Point do
-	context "create point objects" do
+	context "create point object" do
 		it "creates from new object"  do
 			expect(Point.new(2,3)).to be_a(Point)
 		end
@@ -26,7 +26,7 @@ RSpec.describe Point do
 	end
 	context "area test" do
 		let(:point) {Point.new(4,4)}
-		context "outside area" do
+		context "is outside of area" do
 			it "returns false when x > point" do
 				expect(point.within_bounds_of?(Point.new(5,0))).to be_falsey
 			end
@@ -37,21 +37,27 @@ RSpec.describe Point do
 				expect(point.within_bounds_of?(Point.new(0,5))).to be_falsey
 			end
 			it "returns false when y < 0" do
-				expect(point.within_bounds_of?(Point.new(0,-10))).to be_falsey
+				expect(point.within_bounds_of?(Point.new(0,-1))).to be_falsey
 			end
 		end
 		context "inside area" do
-			it "returns false when x <= point" do
-				expect(point.within_bounds_of?(Point.new(4,0))).to be_truthy
+			it "returns true when x < point" do
+				expect(point.within_bounds_of?(Point.new(3,0))).to be_truthy
 			end
 			it "returns true when x >= 0" do
 				expect(point.within_bounds_of?(Point.new(0,0))).to be_truthy
 			end
-			it "returns true when y <= point" do
-				expect(point.within_bounds_of?(Point.new(0,4))).to be_truthy
+			it "returns true when x = point" do
+				expect(point.within_bounds_of?(Point.new(4,0))).to be_truthy
+			end
+			it "returns true when y < point" do
+				expect(point.within_bounds_of?(Point.new(0,2))).to be_truthy
 			end
 			it "returns true when y >= 0" do
 				expect(point.within_bounds_of?(Point.new(0,0))).to be_truthy
+			end
+			it "returns true when y = point" do
+				expect(point.within_bounds_of?(Point.new(0,4))).to be_truthy
 			end
 			it "returns true when valid x and y" do
 				expect(point.within_bounds_of?(Point.new(0,0))).to be_truthy
@@ -125,28 +131,8 @@ RSpec.describe Location do
 	end
 	context "new location" do
 		let(:mypoint) {Point.new(1,2)}
-		let(:location) {loc = Location.new()
-			loc.setup(direction: :EAST, point: mypoint)
-			loc} 
-		it "by point" do
-			myNewpoint = Point.new(3,4)     
-			newLocation = location.new_point(myNewpoint)  
+		let(:location) {loc = Location.new().setup(direction: :EAST, point: mypoint)}
 			
-			expect(newLocation.point).to eq(myNewpoint)
-			expect(newLocation.direction).to eq(:EAST)
-			expect(location.point).to eq(mypoint)
-			expect(location.direction).to eq(:EAST)						
-		end
-		it "ignore point when nil" do
-			nil_location = Location.new()
-			myNewpoint = Point.new(3,4)     
-			newLocation = nil_location.new_point(myNewpoint)  
-			
-			expect(newLocation.point).to be_nil
-			expect(newLocation.direction).to be_nil
-			expect(nil_location.point).to be_nil
-			expect(nil_location.direction).to be_nil						
-		end
 		
 		it "by face" do
 			location.direction = :SOUTH

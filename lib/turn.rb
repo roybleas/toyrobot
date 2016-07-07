@@ -3,7 +3,7 @@ class Turn
 			
 	def action (location, turn_direction)
 		location.direction = turn_direction[location.direction]
-		location
+		return location
 	end
 
 end
@@ -18,9 +18,9 @@ end
 
 class Right < Turn
 	TURN_RIGHT = {:NORTH => :EAST, :EAST => :SOUTH, :SOUTH => :WEST, :WEST => :NORTH}.freeze
+	
 	def execute(location)
 		self.action(location,TURN_RIGHT)
 	end
-
 end
 

@@ -27,5 +27,6 @@ class Robot
 				@current_location = new_location if table.valid_point?(new_location.point)
 			end
 		end
+		
 	end
 end

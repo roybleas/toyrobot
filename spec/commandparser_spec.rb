@@ -5,32 +5,32 @@ RSpec.describe CommandParser do
 	describe "reads a string of instructions" do
 		let(:commandParser) {CommandParser.new()} 
 		context "when no instructions" do
-			it "creates an empty array with an empty input string" do
+			it "creates an empty array from an empty input string" do
 				expect(commandParser.parse("")).to be_empty
 			end
 			it "ignores white space " do
 				expect(commandParser.parse("   \n  ")).to be_empty
 			end
 		end
-		context "known instructions" do
-			it "include MOVE" do
+		context " with known instructions" do
+			it "includes MOVE" do
 				expect(commandParser.parse("MOVE")).to eq ["MOVE"]
 			end
-			it "include REPORT" do
+			it "includes REPORT" do
 				expect(commandParser.parse("REPORT ")).to eq ["REPORT"]
 			end			
-			it "include LEFT" do
+			it "includes LEFT" do
 				expect(commandParser.parse("LEFT ")).to eq ["LEFT"]
 			end
-			it "include RIGHT" do
+			it "includes RIGHT" do
 				expect(commandParser.parse("RIGHT ")).to eq ["RIGHT"]
 			end
-			it "include PLACE d,d,f" do
+			it "includes PLACE d,d,f" do
 				expect(commandParser.parse("PLACE 0,1,WEST ")).to eq ["PLACE 0,1,WEST"]
 			end
 		end
-		context "multiple known instructions" do
-			it "3 MOVEs" do
+		context "with multiple known instructions" do
+			it "of the same instruction" do
 				expect(commandParser.parse("MOVE MOVE MOVE")).to eq ["MOVE","MOVE", "MOVE"]
 			end
 			it "combined" do
@@ -44,7 +44,7 @@ RSpec.describe CommandParser do
 			end			
 		end
 		context "unknown instructions" do
-			it "raise error" do
+			it "raises an error" do
 				expect{commandParser.parse("unknown-instruction")}.to raise_error(CommandParserError,/Invalid instruction at 0 : unknown/)
 			end
 		end

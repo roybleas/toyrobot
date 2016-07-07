@@ -4,6 +4,6 @@ class Report
 		
 		printf "%d,%d,%s \n", location.point.x,location.point.y,location.direction.to_s if location.setup?
 		
-		location
+		return location
 	end
 end

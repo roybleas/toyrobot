@@ -35,4 +35,29 @@ RSpec.describe Move do
 			expect(new_location).to eq(location)
 		end
 	end
+	context "new location" do
+		let(:myNewpoint) {Point.new(3,4)}
+		let(:move) {Move.new}
+		it "ignore point when nil" do
+			nil_location = Location.new()
+			newLocation = move.new_location(nil_location,myNewpoint)  
+			
+			expect(newLocation.point).to be_nil
+			expect(newLocation.direction).to be_nil
+			expect(nil_location.point).to be_nil
+			expect(nil_location.direction).to be_nil						
+		end
+		
+		it "create location with new point" do
+			myPoint = Point.new(1,2)   
+			current_location = Location.new
+			current_location.setup(direction: :EAST, point: myPoint )  
+			newLocation = move.new_location(current_location, myNewpoint) 
+			 
+			expect(newLocation.point).to eq(myNewpoint)
+			expect(newLocation.direction).to eq(:EAST)
+			expect(current_location.point).to eq(myPoint)
+			expect(current_location.direction).to eq(:EAST)						
+		end
+	end
 end

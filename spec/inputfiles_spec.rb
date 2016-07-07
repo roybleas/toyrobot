@@ -11,7 +11,7 @@ RSpec.describe Inputfiles do
 		context "using a parameter instead of a file" do
 			it "returns missing input file message" do
 				ARGV << "--invalid"
-				expect{Inputfiles.new().read}.to  raise_error(/No such file or directory/)
+				expect{Inputfiles.new.read}.to  raise_error(/No such file or directory/)
 			end
 		end
 		context "a valid file name" do
@@ -20,7 +20,7 @@ RSpec.describe Inputfiles do
 				ARGV << filename
 				expect(Inputfiles.new.read).to  include("sample text")
 			end
-			it "retrieves from multiple files" do
+			it "retrieves text from multiple files" do
 				filename = './spec/files/commandslist.txt'
 				ARGV << filename
 				filename = './spec/files/commandslist2.txt'
