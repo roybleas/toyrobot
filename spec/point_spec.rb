@@ -1,5 +1,4 @@
-require "./lib/location"
-
+require "./lib/point"
 
 RSpec.describe Point do
 	context "create point object" do
@@ -110,41 +109,5 @@ RSpec.describe Point do
 			expect(p3.x).to eq(5)
 			expect(p3.y).to eq(7)
 		end
-	end
-end
-
-RSpec.describe Location do
-	context "setup a location" do
-		let(:location) {Location.new()}
-		let(:myPoint)  {Point.new(1,0)}
-		it " sets direction" do          
-			expect(location.setup?).to be_falsey
-			location.setup(direction: :NORTH, point: myPoint)
-			expect(location.direction).to eq(:NORTH)
-			expect(location.point).to eq(myPoint)
-			expect(location.setup?).to be_truthy
-		end
-		it "ignores setup when invalid direction" do
-			location.setup(direction: :BAD, point: myPoint)
-			expect(location.setup?).to be_falsey
-		end
-	end
-	context "new location" do
-		let(:mypoint) {Point.new(1,2)}
-		let(:location) {loc = Location.new().setup(direction: :EAST, point: mypoint)}
-			
-		
-		it "by face" do
-			location.direction = :SOUTH
-			expect(location.point).to eq(mypoint)
-			expect(location.direction).to eq(:SOUTH)						
-		end
-		it "ignore when nil" do
-			nil_location = Location.new()
-			nil_location.direction = :newFace
-			expect(nil_location.point).to be_nil
-			expect(nil_location.direction).to be_nil						
-		end
-
 	end
 end

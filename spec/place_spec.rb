@@ -28,8 +28,7 @@ RSpec.describe Place do
 		end
 		it "ignores original location" do
 			place = Place.new(x: 1,y: 2,facing: "NORTH")
-			location = Location.new()
-			location.setup(direction: :EAST, point: Point.new(3,4))
+			location = Location.new.setup(direction: :EAST, point: Point.new(3,4))
 			newLocation = place.execute(location)
 			expect(location.direction).to eq(:EAST)
 			expect(location.point).to eq(Point.new(3,4))

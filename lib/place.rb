@@ -7,8 +7,7 @@ class Place
 	end
 	
 	def execute(location)
-		newLocation = Location.new()
-		newLocation.setup(direction: @facing, point: @point)
+		newLocation = Location.new.setup(direction: @facing, point: @point)
 		newLocation	
 	end
 end
