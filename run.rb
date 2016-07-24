@@ -16,7 +16,7 @@
 require './lib/inputfiles'
 require './lib/robot'
 
-command_list_text = Inputfiles.new.read
+command_list_text = InputFiles.new.read
 
 robot = Robot.new
 robot.feed_instructions(command_list_text)

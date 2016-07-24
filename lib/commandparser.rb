@@ -8,12 +8,12 @@ class CommandParser
   def parse(inputText)
     text = inputText.strip
     return [] if text.size == 0
-    return extractCommands(text)
+    return extract_commands(text)
   end
   
   private
   
-  def extractCommands(text)
+  def extract_commands(text)
     regexpError = /\s*\w+\b\s*/
     regexp = /\s*MOVE\s+|\s*REPORT\s+|\s*LEFT\s+|\s*RIGHT\s+|\s*PLACE \d,\d,\w+\b\s+|^\s*#.*$/
     
@@ -25,7 +25,7 @@ class CommandParser
     while !scanner.eos?
       command = scanner.scan(regexp)
       break if command.nil?
-      commandList << command.strip unless commandIsInvalid?(command)  
+      commandList << command.strip unless invalid_command?(command)  
     end
     
     if !scanner.eos?
@@ -36,7 +36,7 @@ class CommandParser
     return commandList
   end 
   
-  def commandIsInvalid?(command)
+  def invalid_command?(command)
     regexpPlace = /(\d),(\d),(WEST|NORTH|EAST|SOUTH)/
 		regexpCommands = /MOVE|REPORT|LEFT|RIGHT/
     regexpComment = /\s*#.*/

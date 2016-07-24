@@ -20,7 +20,7 @@ class CommandFactory
         when "REPORT"
           Report.new()
         when /PLACE /
-          createPlace(typeof)
+          create_place(typeof)
         else
           raise CommandFactoryError,"Invalid Command type: #{typeof}"
       end
@@ -28,7 +28,7 @@ class CommandFactory
   end
   
   private
-  def self.createPlace(command)
+  def self.create_place(command)
     regexp = /(?<x>\d),(?<y>\d),(?<f>\w+)/
     data = command.match(regexp)
     return Place.new(x: data[:x],y: data[:y],facing: data[:f])    
