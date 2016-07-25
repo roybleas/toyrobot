@@ -46,6 +46,12 @@ RSpec.describe Robot do
       	log_text = file.read
       	expect(log_text).to include("not_a_place")
       end
+      it "generates an error when writing to incorrect logger class" do
+      	file = StringIO.new
+      	log = Logger.new(file)
+      	robot.logger = file
+      	expect{robot.feed_instructions("MOVE TURN")}.to raise_error(NoMethodError,/private method /)
+      end
     end
   end 
   context "runs instruction set" do

@@ -1,5 +1,6 @@
 class Table
   attr_accessor :size
+  
   def initialize(x = 4,y = 4)
     @size = Point.new(x, y)
   end 

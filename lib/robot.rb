@@ -14,6 +14,7 @@ class Robot
   end
 
   def feed_instructions(text)
+  	#logger is an instance of Logger
     command_parser = CommandParser.new(@logger)
     instruction_list = command_parser.parse(text)
     @command_list = instruction_list.map { |instruction| CommandFactory.create(instruction) }

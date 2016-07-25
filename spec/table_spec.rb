@@ -1,8 +1,12 @@
 require "./lib/table"
+
 RSpec.describe Table do
   context "a default table" do
     it "creates a default table" do
       expect(Table.new().size).to be == Point.new(4,4)
+    end
+    it "creates a non default table" do
+      expect(Table.new(5,5).size).to be == Point.new(5,5)
     end
   end
   context "valid location" do

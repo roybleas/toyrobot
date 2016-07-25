@@ -2,6 +2,7 @@ class PointError < StandardError;end
 
 class Point
   attr_accessor :x, :y
+  
   def initialize(x,y)
     @x = x.to_i
     @y = y.to_i
