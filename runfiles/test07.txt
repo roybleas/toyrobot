@@ -1,0 +1,3 @@
+# Test run fail before run reports 1,0, North
+invalid_instruction 
+PLACE 0,0,NORTH REPORT

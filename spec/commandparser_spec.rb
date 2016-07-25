@@ -44,27 +44,30 @@ RSpec.describe CommandParser do
       end     
     end
     context "unknown instructions" do
-      it "raises an error" do
-        expect{commandParser.parse("unknown-instruction")}.to raise_error(CommandParserError,/Invalid instruction at 0 : unknown/)
+      it "logs an error" do
+      	expect{commandParser.parse("unknown_instruction")}.to output(/Invalid instruction at 0 : unknown_instruction/).to_stdout_from_any_process
       end
     end
     context "Invalid instructions" do
-      it "raises an error and shows the position of the first unknown word" do
-        expect{commandParser.parse("LEFT RIGHT invalid MOVE")}.to raise_error(CommandParserError,/Invalid instruction at 11 : invalid/)
+      it "logs an error and shows the position of the unknown word" do
+        expect{commandParser.parse("LEFT RIGHT invalid MOVE")}.to output(/Invalid instruction at 11 : invalid/).to_stdout_from_any_process
+      end
+      it "logs multiple unknown key words and shows the position of the unknown words" do
+        expect{commandParser.parse("LEFT RIGHT invalid_first MOVE invalid_second")}.to output(/Invalid instruction at 30 : invalid_second/).to_stdout_from_any_process
       end
     end
-    context "Invalid PLACE instructions" do
-      it "raises an error when facing is unknown" do
-        expect{commandParser.parse("PLACE 0,0,WRONG")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 0,0,WRONG/)
+    context "Invalid PLACE instructions"  do
+      it "logs an error when facing is unknown" do
+        expect{commandParser.parse("PLACE 0,0,WRONG")}.to output(/Invalid PLACE instruction : PLACE 0,0,WRONG/).to_stdout_from_any_process
       end
-      it "raises an error when x is not numeric" do
-        expect{commandParser.parse("PLACE x,0,NORTH")}.to raise_error(CommandParserError,/Invalid instruction at 0 : PLACE/)
+      it "logs an error when x is not numeric" do
+        expect{commandParser.parse("PLACE x,0,NORTH")}.to output(/Invalid instruction at 0 : PLACE/).to_stdout_from_any_process
       end
-      it "raises an error when y is not numeric" do
-        expect{commandParser.parse("PLACE 1,y,SOUTH")}.to raise_error(CommandParserError,/Invalid instruction at 0 : PLACE/)
+      it "logs an error when y is not numeric" do
+        expect{commandParser.parse("PLACE 1,y,SOUTH")}.to output(/Invalid instruction at 0 : PLACE/).to_stdout_from_any_process
       end
-      it "raises an error when facing is not all upper case" do
-        expect{commandParser.parse("PLACE 1,2,South")}.to raise_error(CommandParserError,/Invalid PLACE instruction : PLACE 1,2,South/)
+      it "logs an error when facing is not all upper case" do
+        expect{commandParser.parse("PLACE 1,2,South")}.to output(/Invalid PLACE instruction : PLACE 1,2,South/).to_stdout_from_any_process
       end
     end
     context "Valid PLACE instructions" do

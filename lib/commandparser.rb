@@ -1,9 +1,12 @@
 require 'strscan'
+require 'logger'
 
-class CommandParserError < StandardError
-end
 
 class CommandParser
+	def initialize(log = nil)
+		@logger = log
+		@logger ||= Logger.new(STDOUT) 
+	end
   
   def parse(inputText)
     text = inputText.strip
@@ -14,7 +17,6 @@ class CommandParser
   private
   
   def extract_commands(text)
-    regexpError = /\s*\w+\b\s*/
     regexp = /\s*MOVE\s+|\s*REPORT\s+|\s*LEFT\s+|\s*RIGHT\s+|\s*PLACE \d,\d,\w+\b\s+|^\s*#.*$/
     
     commandList = []
@@ -24,27 +26,30 @@ class CommandParser
     
     while !scanner.eos?
       command = scanner.scan(regexp)
-      break if command.nil?
+     	unknown_command(scanner) if command.nil?
       commandList << command.strip unless invalid_command?(command)  
     end
-    
-    if !scanner.eos?
-      invalidInstruction = scanner.check(regexpError)
-      raise CommandParserError, "Invalid instruction at #{scanner.pos} : #{invalidInstruction}"
-    end
-    
+        
     return commandList
   end 
+  
+  def unknown_command(scanner)
+  	regexpError = /\s*\w+\b\s*/
+  	scanner_pos = scanner.pos
+  	invalidInstruction = scanner.scan_until(regexpError)
+  	@logger.warn("Invalid instruction at #{scanner_pos} : #{invalidInstruction}")
+  end
   
   def invalid_command?(command)
     regexpPlace = /(\d),(\d),(WEST|NORTH|EAST|SOUTH)/
 		regexpCommands = /MOVE|REPORT|LEFT|RIGHT/
     regexpComment = /\s*#.*/
 
+		return true if command.nil?
     return false if command.match(regexpCommands )
     return true if command.match(regexpComment)
     return false if command.match(regexpPlace)
-    raise CommandParserError, "Invalid PLACE instruction : #{command}"
+    @logger.warn("Invalid PLACE instruction : #{command}")
     return true
   end
 end

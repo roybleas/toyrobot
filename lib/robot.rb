@@ -5,7 +5,7 @@ require_relative 'commandfactory'
 
 class Robot
   attr_reader :table, :current_location
-  attr_accessor :command_list
+  attr_accessor :command_list, :logger
   
   def initialize
     @table = Table.new()
@@ -14,7 +14,7 @@ class Robot
   end
 
   def feed_instructions(text)
-    command_parser = CommandParser.new()
+    command_parser = CommandParser.new(@logger)
     instruction_list = command_parser.parse(text)
     @command_list = instruction_list.map { |instruction| CommandFactory.create(instruction) }
   end

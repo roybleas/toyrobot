@@ -1,5 +1,6 @@
 require "./lib/robot"
 require "./lib/commandfactory"
+require "stringio"
 
 RSpec.describe Robot do
   context "attributes" do
@@ -32,9 +33,18 @@ RSpec.describe Robot do
       end
     end
     
-    context "rejects invalid instructions text" do
+    context "rejects and logs invalid instructions text" do
       it "rejects lowercase instructions" do
-        expect{robot.feed_instructions("MOVE place 0,0,North")}.to raise_error(CommandParserError, /Invalid instruction at 5 : place/ )
+        expect{robot.feed_instructions("MOVE place 0,0,North")}.to output(/Invalid instruction at 5 : place/ ).to_stdout_from_any_process
+      end
+      it "replaces default logger class with own instance to track errors" do
+      	file = StringIO.new
+      	log = Logger.new(file)
+      	robot.logger = log
+      	robot.feed_instructions("MOVE not_a_place TURN")
+      	file.rewind
+      	log_text = file.read
+      	expect(log_text).to include("not_a_place")
       end
     end
   end 
